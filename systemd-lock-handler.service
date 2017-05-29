@@ -1,0 +1,9 @@
+[Unit]
+Description=Logind lock event to systemd target translation
+Documentation=https://github.com/hobarrera/systemd-lock-handler
+
+[Service]
+ExecStart=/usr/bin/systemd-lock-handler
+
+[Install]
+WantedBy=default.target

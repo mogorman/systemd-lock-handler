@@ -1,0 +1,3 @@
+[Unit]
+Conflicts=unlock.target
+Description=Lock the current session
