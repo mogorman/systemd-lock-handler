@@ -21,14 +21,12 @@ def onLock():
             '/org/freedesktop/systemd1',
         )
         yield robj.callRemote('StartUnit', 'lock.target', 'replace')
-
     except Exception as e:
         logger.exception('Error starting lock.target.')
 
 
 @defer.inlineCallbacks
 def main():
-
     try:
         cli = yield client.connect(reactor, 'system')
 
@@ -38,12 +36,9 @@ def main():
         )
 
         robj.notifyOnSignal('Lock', onLock)
-
     except Exception as e:
         logger.exception('Error listening for lock events.')
 
 
 reactor.callWhenRunning(main)
 reactor.run()
-
-# vim: ft=python
