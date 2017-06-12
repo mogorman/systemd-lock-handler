@@ -1,6 +1,4 @@
-#!/usr/bin/env python2
-#
-# Not that this won't run on python3 until txdbus merges #47.
+#!/usr/bin/env python
 
 import logging
 
