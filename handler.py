@@ -19,7 +19,7 @@ def onLock():
             '/org/freedesktop/systemd1',
         )
         yield robj.callRemote('StartUnit', 'lock.target', 'replace')
-    except Exception as e:
+    except Exception:
         logger.exception('Error starting lock.target.')
 
 
@@ -34,7 +34,7 @@ def main():
         )
 
         robj.notifyOnSignal('Lock', onLock)
-    except Exception as e:
+    except Exception:
         logger.exception('Error listening for lock events.')
 
 
