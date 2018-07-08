@@ -16,6 +16,19 @@ Note that systemd already have a ``sleep.target``, however, that's a
 system-level target, and your user-level units can't rely on it. The one
 included in this package does not conflict, but rather compliments that one.
 
+Installation
+------------
+
+* Download the latest release_.
+* ``tar xf v1.0.0``
+* ``cd systemd-lock-handler-1.0.0/``
+* ``sudo make install``
+
+.. _release: https://github.com/WhyNotHugo/systemd-lock-handler/releases
+
+Usage
+-----
+
 You should service files for anything you intend to intend to run on lock. For
 example, ``enabling`` this service file would run ``slock``::
 
