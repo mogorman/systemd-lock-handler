@@ -24,16 +24,35 @@ def onLock():
 
 
 @defer.inlineCallbacks
+def onSleep(suspended):
+    try:
+        cli = yield client.connect(reactor, 'session')
+
+        robj = yield cli.getRemoteObject(
+            'org.freedesktop.systemd1',
+            '/org/freedesktop/systemd1',
+        )
+        yield robj.callRemote('StartUnit', 'sleep.target', 'replace')
+    except Exception:
+        logger.exception('Error starting lock.target.')
+
+
+@defer.inlineCallbacks
 def main():
     try:
         cli = yield client.connect(reactor, 'system')
 
-        robj = yield cli.getRemoteObject(
+        lock_obj = yield cli.getRemoteObject(
             'org.freedesktop.login1',
             '/org/freedesktop/login1/session/c1',
         )
+        sleep_obj = yield cli.getRemoteObject(
+            'org.freedesktop.login1',
+            '/org/freedesktop/login1',
+        )
 
-        robj.notifyOnSignal('Lock', onLock)
+        lock_obj.notifyOnSignal('Lock', onLock)
+        sleep_obj.notifyOnSignal('PrepareForSleep', onSleep)
     except Exception:
         logger.exception('Error listening for lock events.')
 
